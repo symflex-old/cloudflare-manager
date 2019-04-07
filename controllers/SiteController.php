@@ -68,7 +68,7 @@ class SiteController extends Controller
             if (!empty($password)) {
                 $user->password = Yii::$app->security->generatePasswordHash($password);
             }
-            
+
             $user->save();
             return $this->goBack();
         }
