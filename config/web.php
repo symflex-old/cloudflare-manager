@@ -50,8 +50,12 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => true,
             'rules' => [
-                '' => 'site/login'
+                '' => 'site/login',
+                '<controller>'          => '<controller>' ,
+                '<controller>/<action>' => '<controller>/<action>',
+                '<controller>/<action>/<id>' => '<controller>/<action>/<id>'
             ],
         ],
 

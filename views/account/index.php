@@ -34,18 +34,46 @@
                 '        <td>' +
                 '        </td>' +
                 '        <td>' +
-                '            <input class="form-control input-sm" name="email" value="">' +
+                '            <input class="form-control input-sm" name="email">' +
                 '        </td>' +
                 '        <td>' +
-                '            <input class="form-control input-sm" name="apikey" value="">' +
+                '            <input class="form-control input-sm" name="api_key">' +
                 '        </td>' +
                 '        <td class="act">' +
-                '            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>' +
+                '            <button class="btn btn-danger btn-sm" id="delete" data-action="delete"><i class="glyphicon glyphicon-trash"></i> </button>' +
+                '            <button class="btn btn-success btn-sm" id="save" data-action="save"><i class="glyphicon glyphicon-floppy-saved"></i> </button>' +
                 '        </td>' +
                 '    </tr>';
             $('table tbody').prepend(template);
 
         });
+
+        $('table').on('click', '[data-action="save"]', function (e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            let parent = $(this).parent().parent();
+
+            let email = $(parent).find('[name="email"]').val();
+            let apiKey = $(parent).find('[name="api_key"]').val();
+
+            let action = 'create';
+
+            if (id) {
+                action = 'update?id=' + id;
+            }
+
+            $.ajax({
+                'url': '/account/' + action,
+                'method': 'post',
+                'dataType': 'json',
+                'data': {Account:{email:email, api_key: apiKey}},
+            }).done(function (e) {
+                console.log(e)
+            });
+
+        });
+
+
     });
 </script>
 
@@ -71,39 +99,25 @@
 <table class="table table-bordered table-hover table-striped">
     <thead>
     <tr>
-        <th width="30">
-            ID
-        </th>
-        <th>
-            E-mail
-        </th>
-        <th>
-            Api key
-        </th>
-        <th class="act">
-            #
-        </th>
+        <th width="30">ID</th>
+        <th>E-mail</th>
+        <th>Api key</th>
+        <th class="act">#</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>
-            1
-        </td>
-        <td>
-            <input class="form-control input-sm" name="email" value="test@test.ru">
-        </td>
-        <td>
-            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
-        </td>
-        <td class="act">
-            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
-            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
-        </td>
-    </tr>
-
+    <?php foreach ($accounts as $account): ?>
+        <tr>
+            <form>
+            <td><?= $account->id ?></td>
+            <td><input class="form-control input-sm" name="email" value="<?= $account->email ?>"></td>
+            <td><input class="form-control input-sm" name="api_key" value="<?= $account->api_key ?>"></td>
+            <td class="act">
+                <button class="btn btn-danger btn-sm" data-action="delete" data-id="<?= $account->id ?>"><i class="glyphicon glyphicon-trash"></i></button>
+                <button class="btn btn-success btn-sm" data-action="save" data-id="<?= $account->id ?>"><i class="glyphicon glyphicon-floppy-saved"></i></button>
+            </td>
+            </form>
+        </tr>
+    <?php endforeach; ?>
     </tbody>
-
 </table>
-
-
