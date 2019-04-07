@@ -6,6 +6,10 @@
     .create {
         margin: 10px 0 10px 0;
     }
+    th, td {
+        text-align: center;
+    }
+
 </style>
 
 <h1>Управление доменами</h1>
@@ -17,9 +21,9 @@
 <table class="table table-bordered table-hover table-striped">
     <thead>
     <tr>
-        <td>
+        <th width="80">
             ID
-        </td>
+        </th>
         <th>
             Логин
         </th>
@@ -49,17 +53,16 @@
             Dev режим
         </th>
         <th>
-            Under Attack Mode
+            Attack Mode
         </th>
-
-        <th>
+        <th width="80">
             #
         </th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td width="100">1</td>
+        <td>1</td>
         <td>test@test.ru</td>
         <td>test.ru</td>
         <td>127.0.0.1</td>
@@ -70,71 +73,7 @@
         <td><a class="btn btn-warning btn-sm">FLUSH</a> </td>
         <td><a class="btn btn-primary btn-sm">OFF</a> </td>
         <td><a class="btn btn-success btn-sm">ON</a> </td>
-        <td width="100">
-            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
-        </td>
-    </tr>
-    <tr>
-        <td width="100">1</td>
-        <td>test@test.ru</td>
-        <td>test.ru</td>
-        <td>127.0.0.1</td>
-        <td>A 127.0.0.1</td>
-        <td><a class="btn btn-success btn-sm">ON</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-warning btn-sm">FLUSH</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-success btn-sm">ON</a> </td>
-        <td width="100">
-            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
-        </td>
-    </tr>
-    <tr>
-        <td width="100">1</td>
-        <td>test@test.ru</td>
-        <td>test.ru</td>
-        <td>127.0.0.1</td>
-        <td>A 127.0.0.1</td>
-        <td><a class="btn btn-success btn-sm">ON</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-warning btn-sm">FLUSH</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-success btn-sm">ON</a> </td>
-        <td width="100">
-            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
-        </td>
-    </tr>
-    <tr>
-        <td width="100">1</td>
-        <td>test@test.ru</td>
-        <td>test.ru</td>
-        <td>127.0.0.1</td>
-        <td>A 127.0.0.1</td>
-        <td><a class="btn btn-success btn-sm">ON</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-warning btn-sm">FLUSH</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-success btn-sm">ON</a> </td>
-        <td width="100">
-            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
-        </td>
-    </tr>
-    <tr>
-        <td width="100">1</td>
-        <td>test@test.ru</td>
-        <td>test.ru</td>
-        <td>127.0.0.1</td>
-        <td>A 127.0.0.1</td>
-        <td><a class="btn btn-success btn-sm">ON</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-warning btn-sm">FLUSH</a> </td>
-        <td><a class="btn btn-primary btn-sm">OFF</a> </td>
-        <td><a class="btn btn-success btn-sm">ON</a> </td>
-        <td width="100">
+        <td>
             <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
         </td>
     </tr>
