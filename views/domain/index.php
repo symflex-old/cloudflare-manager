@@ -1,5 +1,14 @@
 <?php
 /* @var $this yii\web\View */
+
+$tlsList = [
+    '1.0',
+    '1.1',
+    '1.2',
+    '1.3',
+];
+
+$sslList = ['off', 'full', 'flexible', 'strict'];
 ?>
 
 <style>
@@ -27,7 +36,7 @@
         <th>NS-записи</th>
         <th>ДНС-записи</th>
         <th>SSL</th>
-        <th>TLS</th>
+        <th width="110">TLS</th>
         <th>Rewrites</th>
         <th>Кеш</th>
         <th>Dev режим</th>
@@ -43,12 +52,24 @@
             <td><?= $zone['domain'] ?></td>
             <td><?= implode('<br>', $zone['ns']) ?></td>
             <td><?= $zone['dns'] ?></td>
-            <td><input type="checkbox" checked data-toggle="toggle" data-size="mini"> </td>
-            <td><input type="checkbox" checked data-toggle="toggle" data-size="mini"> </td>
-            <td><input type="checkbox" checked data-toggle="toggle" data-size="mini"> </td>
-            <td><a class="btn btn-warning btn-sm">FLUSH</a> </td>
-            <td><input type="checkbox" checked data-toggle="toggle" data-size="mini"> </td>
-            <td><input type="checkbox" checked data-toggle="toggle" data-size="mini"> </td>
+            <td>
+                <select class="form-control input-sm">
+                <?php foreach ($sslList as $item): ?>
+                    <option value="<?= $item ?>" <?= $item === $zone['ssl'] ? 'selected' : '' ?>><?= ucfirst($item) ?> </option>
+                <?php endforeach; ?>
+                </select>
+            </td>
+            <td>
+                <select class="form-control input-sm">
+                <?php foreach ($tlsList as $item): ?>
+                <option value="<?= $item ?>" <?= $item === $zone['tls'] ? 'selected' : '' ?>>TLS <?= $item ?> </option>
+                <?php endforeach; ?>
+                </select>
+            </td>
+            <td><input type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['rewrite'] ? 'checked' : '' ?>> </td>
+            <td><a class="btn btn-danger btn-sm">FLUSH</a> </td>
+            <td><input type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['dev'] ? 'checked' : '' ?>> </td>
+            <td><input type="checkbox" data-toggle="toggle" data-size="small"> </td>
             <td>
                 <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
             </td>
