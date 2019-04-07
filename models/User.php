@@ -10,29 +10,20 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $authKey;
     public $accessToken;
 
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
+    private static $users = [];
 
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+        self::$users = json_decode(file_get_contents(CONFIG_PATH . '/user.txt'), true);
+    }
 
     /**
      * {@inheritdoc}
      */
     public static function findIdentity($id)
     {
+        self::$users = json_decode(file_get_contents(CONFIG_PATH . '/user.txt'), true);
         return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
     }
 
@@ -58,6 +49,8 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
+        self::$users = json_decode(file_get_contents(CONFIG_PATH . '/user.txt'), true);
+
         foreach (self::$users as $user) {
             if (strcasecmp($user['username'], $username) === 0) {
                 return new static($user);

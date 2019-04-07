@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -52,6 +53,31 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+    public function actionSettings()
+    {
+        if (Yii::$app->request->isPost) {
+            $id = Yii::$app->user->identity->id;
+            $user = User::findIdentity($id);
+
+            $login = Yii::$app->request->post('login');
+            $password = Yii::$app->request->post('password');
+            $user->username = $login;
+            $user->password = $password;
+
+            $data[$id] = [
+                'id' => $id,
+                'username' => $login,
+                'password' => $password,
+                'authKey' => $user->getAuthKey(),
+                'accessToken' => $user->accessToken
+            ];
+
+            file_put_contents(CONFIG_PATH . '/user.txt', json_encode($data));
+            return $this->goBack();
+        }
+        return $this->render('settings', ['user' => Yii::$app->user->identity]);
     }
 
     /**

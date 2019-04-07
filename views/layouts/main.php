@@ -38,9 +38,11 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+            !Yii::$app->user->isGuest ? ['label' => 'Настройки', 'url' => ['/site/settings']] : '',
             !Yii::$app->user->isGuest ? ['label' => 'Аккаунты', 'url' => ['/account/index']] : '',
             !Yii::$app->user->isGuest ? ['label' => 'Домены', 'url' => ['/domain/index']] : '',
 

@@ -13,8 +13,16 @@
     }
 
     .act {
-        width: 30px;
+        width: 120px;
         text-align: center;
+    }
+    .alert {
+        padding: 5px 15px;
+        margin-bottom: 0;
+    }
+    .alert-dismissable .close,
+    .alert-dismissible .close {
+        right: 0;
     }
 </style>
 <script>
@@ -42,7 +50,22 @@
 </script>
 
 <div class="create">
-    <a id="create" class="btn btn-success btn-sm">Добавить</a>
+    <div class="row">
+        <div class="col-sm-4">
+            <a id="create" class="btn btn-success btn-sm">Добавить</a>
+        </div>
+        <div class="col-sm-8">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Успешно
+            </div>
+
+            <!--<div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Ошибка
+            </div>-->
+        </div>
+    </div>
 </div>
 
 <table class="table table-bordered table-hover table-striped">
@@ -74,79 +97,11 @@
             <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
         </td>
         <td class="act">
+            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
             <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
         </td>
     </tr>
-    <tr>
-        <td>
-            1
-        </td>
-        <td>
-            <input class="form-control input-sm" name="email" value="test@test.ru">
-        </td>
-        <td>
-            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
-        </td>
-        <td class="act">
-            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            1
-        </td>
-        <td>
-            <input class="form-control input-sm" name="email" value="test@test.ru">
-        </td>
-        <td>
-            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
-        </td>
-        <td class="act">
-            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            1
-        </td>
-        <td>
-            <input class="form-control input-sm" name="email" value="test@test.ru">
-        </td>
-        <td>
-            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
-        </td>
-        <td class="act">
-            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            1
-        </td>
-        <td>
-            <input class="form-control input-sm" name="email" value="test@test.ru">
-        </td>
-        <td>
-            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
-        </td>
-        <td class="act">
-            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            1
-        </td>
-        <td>
-            <input class="form-control input-sm" name="email" value="test@test.ru">
-        </td>
-        <td>
-            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
-        </td>
-        <td class="act">
-            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
-        </td>
-    </tr>
+
     </tbody>
 
 </table>
