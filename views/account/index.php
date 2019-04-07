@@ -21,81 +21,75 @@
 <table class="table table-bordered table-hover table-striped">
     <thead>
     <tr>
-        <td>
+        <th width="30">
             ID
-        </td>
+        </th>
         <th>
             E-mail
         </th>
         <th>
-
+            Api key
+        </th>
+        <th width="30">
+            #
         </th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td width="100">
+        <td>
             1
         </td>
         <td>
-            test@test.ru
+            <input class="form-control input-sm" name="email" value="test@test.ru">
+        </td>
+        <td>
+            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
         </td>
         <td width="100">
-            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
-            <a class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i> </a>
-
+            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
         </td>
     </tr>
     <tr>
-        <td width="100">
+        <td>
             1
         </td>
         <td>
-            test@test.ru
+            <input class="form-control input-sm" name="email" value="test@test.ru">
+        </td>
+        <td>
+            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
         </td>
         <td width="100">
-            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
-            <a class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i> </a>
-
+            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
         </td>
     </tr>
     <tr>
-        <td width="100">
+        <td>
             1
         </td>
         <td>
-            test@test.ru
+            <input class="form-control input-sm" name="email" value="test@test.ru">
+        </td>
+        <td>
+            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
         </td>
         <td width="100">
-            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
-            <a class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i> </a>
-
+            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
         </td>
     </tr>
     <tr>
-        <td width="100">
+        <td>
             1
         </td>
         <td>
-            test@test.ru
-        </td>
-        <td width="100">
-            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
-            <a class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i> </a>
-
-        </td>
-    </tr>
-    <tr>
-        <td width="100">
-            1
+            <input class="form-control input-sm" name="email" value="test@test.ru">
         </td>
         <td>
-            test@test.ru
+            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
         </td>
         <td width="100">
-            <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
-            <a class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i> </a>
-
+            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
         </td>
     </tr>
     </tbody>
