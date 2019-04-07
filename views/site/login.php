@@ -26,7 +26,7 @@ use yii\bootstrap\ActiveForm;
         ],
     ]); ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Логин') ?>
+        <?= $form->field($model, 'login')->textInput(['autofocus' => true])->label('Логин') ?>
 
         <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
 

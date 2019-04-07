@@ -2,29 +2,17 @@
 
 namespace app\models;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+use yii\db\ActiveRecord;
+use yii\db\Exception;
+
+class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [];
-
-    public function __construct(array $config = [])
-    {
-        parent::__construct($config);
-        self::$users = json_decode(file_get_contents(CONFIG_PATH . '/user.txt'), true);
-    }
-
     /**
      * {@inheritdoc}
      */
     public static function findIdentity($id)
     {
-        self::$users = json_decode(file_get_contents(CONFIG_PATH . '/user.txt'), true);
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+       return static::findOne($id);
     }
 
     /**
@@ -32,13 +20,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        throw new Exception('not supported');
     }
 
     /**
@@ -47,17 +29,9 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByLogin($login)
     {
-        self::$users = json_decode(file_get_contents(CONFIG_PATH . '/user.txt'), true);
-
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return static::findOne(['login' => $login]);
     }
 
     /**
@@ -73,7 +47,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->authKey;
+        return null;
     }
 
     /**
@@ -85,13 +59,12 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     }
 
     /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return bool if password provided is valid for current user
+     * @param $password
+     * @return bool
+     * @throws \yii\base\Exception
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return \Yii::$app->security->validatePassword($password, $this->password);
     }
 }

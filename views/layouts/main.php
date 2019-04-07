@@ -46,7 +46,7 @@ AppAsset::register($this);
             !Yii::$app->user->isGuest ? ['label' => 'Аккаунты', 'url' => ['/account/index']] : '',
             !Yii::$app->user->isGuest ? ['label' => 'Домены', 'url' => ['/domain/index']] : '',
 
-            !Yii::$app->user->isGuest ? '<li>' . Html::beginForm(['/site/logout'], 'post')  . Html::submitButton('Выйти (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout'])
+            !Yii::$app->user->isGuest ? '<li>' . Html::beginForm(['/site/logout'], 'post')  . Html::submitButton('Выйти (' . Yii::$app->user->identity->login . ')', ['class' => 'btn btn-link logout'])
                 . Html::endForm() . '</li>' : '',
         ],
     ]);

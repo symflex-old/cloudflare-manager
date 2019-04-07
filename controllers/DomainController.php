@@ -2,14 +2,17 @@
 
 namespace app\controllers;
 
+use app\cloudflare\sdk\Endpoints\Zones;
 use app\models\Account;
 use Cloudflare\API\Adapter\Guzzle;
 use Cloudflare\API\Auth\APIKey;
 use Cloudflare\API\Endpoints\User;
-use Cloudflare\API\Endpoints\Zones;
+
 
 class DomainController extends \yii\web\Controller
 {
+
+
     public function actionIndex()
     {
         $account = Account::find()->all();
@@ -23,13 +26,12 @@ class DomainController extends \yii\web\Controller
             $zones    = new Zones($adapter);
             $dns = new \Cloudflare\API\Endpoints\DNS($adapter);
 
-
-
-
-
-
-
             foreach ($zones->listZones()->result as $zone) {
+
+                $settings = $zones->getAllZoneSettings($zone->id);
+
+                var_dump($settings);
+
                 $record = $dns->listRecords($zone->id, 'A', $zone->name);
 
                 $result[] = [

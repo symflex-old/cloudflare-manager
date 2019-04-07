@@ -38,7 +38,7 @@
     <tbody>
     <?php foreach ($zones as $i => $zone): ?>
         <tr>
-            <td><?= $i ?></td>
+            <td><?= ++$i ?></td>
             <td><?= $zone['account'] ?></td>
             <td><?= $zone['domain'] ?></td>
             <td><?= implode('<br>', $zone['ns']) ?></td>
