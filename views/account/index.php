@@ -12,6 +12,10 @@
         margin: 10px 0 10px 0;
     }
 
+    .act {
+        width: 30px;
+        text-align: center;
+    }
 </style>
 
 <div class="create">
@@ -30,7 +34,7 @@
         <th>
             Api key
         </th>
-        <th width="30">
+        <th class="act">
             #
         </th>
     </tr>
@@ -46,7 +50,7 @@
         <td>
             <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
         </td>
-        <td width="100">
+        <td class="act">
             <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
         </td>
     </tr>
@@ -60,7 +64,7 @@
         <td>
             <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
         </td>
-        <td width="100">
+        <td class="act">
             <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
         </td>
     </tr>
@@ -74,7 +78,7 @@
         <td>
             <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
         </td>
-        <td width="100">
+        <td class="act">
             <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
         </td>
     </tr>
@@ -88,7 +92,35 @@
         <td>
             <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
         </td>
-        <td width="100">
+        <td class="act">
+            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            1
+        </td>
+        <td>
+            <input class="form-control input-sm" name="email" value="test@test.ru">
+        </td>
+        <td>
+            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
+        </td>
+        <td class="act">
+            <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            1
+        </td>
+        <td>
+            <input class="form-control input-sm" name="email" value="test@test.ru">
+        </td>
+        <td>
+            <input class="form-control input-sm" name="apikey" value="129xny293ey8237xt2h873d">
+        </td>
+        <td class="act">
             <a class="btn btn-success btn-sm"><i class="glyphicon glyphicon-floppy-saved"></i> </a>
         </td>
     </tr>
