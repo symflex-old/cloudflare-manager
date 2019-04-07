@@ -9,9 +9,8 @@ class ZonesSettings
 {
     use BodyAccessorTrait;
 
-    public const FLAG_ON_OFF = ['on' => 1, 'off' => 0];
-    public const FLAG_SSL = ['off', 'full', 'flexible', 'strict'];
-
+    public const FLAG_SSL       = ['off', 'full', 'flexible', 'strict'];
+    public const FLAG_ON_OFF    = ['on' => 1, 'off' => 0];
     public const EXCLUDE_ON_OFF = ['ssl'];
 
     protected $adapter;

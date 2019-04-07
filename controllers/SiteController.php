@@ -63,18 +63,13 @@ class SiteController extends Controller
 
             $login = Yii::$app->request->post('login');
             $password = Yii::$app->request->post('password');
-            $user->username = $login;
-            $user->password = $password;
+            $user->login = $login;
 
-            $data[$id] = [
-                'id' => $id,
-                'username' => $login,
-                'password' => $password,
-                'authKey' => $user->getAuthKey(),
-                'accessToken' => $user->accessToken
-            ];
-
-            file_put_contents(CONFIG_PATH . '/user.txt', json_encode($data));
+            if (!empty($password)) {
+                $user->password = Yii::$app->security->generatePasswordHash($password);
+            }
+            
+            $user->save();
             return $this->goBack();
         }
         return $this->render('settings', ['user' => Yii::$app->user->identity]);

@@ -11,8 +11,6 @@ use Cloudflare\API\Endpoints\Zones;
 
 class DomainController extends \yii\web\Controller
 {
-
-
     public function actionIndex()
     {
         $account = Account::find()->all();
@@ -30,11 +28,6 @@ class DomainController extends \yii\web\Controller
 
             foreach ($zones->listZones()->result as $zone) {
                 $settings = $zonesSettings->getSettingsByZone($zone->id);
-
-                //var_dump($settings);
-
-                //exit;
-                //var_dump($zone);
 
                 $record = $dns->listRecords($zone->id, 'A', $zone->name);
 

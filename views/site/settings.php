@@ -7,7 +7,7 @@
     <input type="hidden" name="<?=Yii::$app->request->csrfParam; ?>" value="<?=Yii::$app->request->getCsrfToken(); ?>" />
     <div class="form-group">
         <label>Логин</label>
-        <input name="login" class="form-control input-sm" value="<?= $user->username ?>">
+        <input name="login" class="form-control input-sm" value="<?= $user->login ?>">
     </div>
     <div class="form-group">
         <label>Пароль</label>
