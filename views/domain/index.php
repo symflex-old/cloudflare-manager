@@ -66,10 +66,10 @@ $sslList = ['off', 'full', 'flexible', 'strict'];
                 <?php endforeach; ?>
                 </select>
             </td>
-            <td><input type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['rewrite'] ? 'checked' : '' ?>> </td>
+            <td><input data-action="rewrite-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['rewrite'] ? 'checked' : '' ?>> </td>
             <td><a class="btn btn-danger btn-sm">FLUSH</a> </td>
-            <td><input type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['dev'] ? 'checked' : '' ?>> </td>
-            <td><input type="checkbox" data-toggle="toggle" data-size="small"> </td>
+            <td><input data-action="dev-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['dev'] ? 'checked' : '' ?>> </td>
+            <td><input data-action="sec_level-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['sec_level'] ? 'checked' : '' ?>> </td>
             <td>
                 <a class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> </a>
             </td>

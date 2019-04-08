@@ -40,7 +40,8 @@ class DomainController extends \yii\web\Controller
                     'dns'       => !empty($record->result[0]->content) ? $record->result[0]->content : null,
                     'rewrite'   => $settings['automatic_https_rewrites'],
                     'tls'       => $settings['min_tls_version'],
-                    'ssl'       => $settings['ssl']
+                    'ssl'       => $settings['ssl'],
+                    'sec_level' => $settings['security_level'] === 'under_attack' ? $settings['security_level'] :  'essentially_off'
 
                 ];
             }
@@ -52,5 +53,57 @@ class DomainController extends \yii\web\Controller
     public function actionCreate()
     {
         return $this->render('create');
+    }
+
+    public function actionApi()
+    {
+        $request = \Yii::$app->request->post();
+
+        switch ($request['action']) {
+            case 'rewrite':
+                $this->rewrite($request['account'], $request['id'], $request['value']);
+                break;
+            case 'dev':
+                $this->dev($request['account'], $request['id'], $request['value']);
+                break;
+            case 'security_level':
+                $this->securityLevel($request['account'], $request['id'], $request['value']);
+                break;
+        }
+    }
+
+    protected function dev($account, $id, $value)
+    {
+        $account = Account::findOne(['email' => $account]);
+
+        $key     = new APIKey($account->email, $account->api_key);
+        $adapter = new Guzzle($key);
+        $settings    = new ZonesSettings($adapter);
+        $result = $settings->setDev($id, $value === 'true' ? 'on' : 'off' );
+        var_dump($result);
+
+
+    }
+
+    protected function rewrite($account, $id, $value)
+    {
+        $account = Account::findOne(['email' => $account]);
+
+        $key     = new APIKey($account->email, $account->api_key);
+        $adapter = new Guzzle($key);
+        $settings    = new ZonesSettings($adapter);
+        $result = $settings->setRewrite($id, $value === 'true' ? 'on' : 'off' );
+        var_dump($result);
+    }
+
+    protected function securityLevel($account, $id, $value)
+    {
+        $account = Account::findOne(['email' => $account]);
+
+        $key     = new APIKey($account->email, $account->api_key);
+        $adapter = new Guzzle($key);
+        $settings    = new ZonesSettings($adapter);
+        $result = $settings->setSecurityLevel($id, $value === 'false' ? 'essentially_off' : 'under_attack'  );
+        var_dump($result);
     }
 }

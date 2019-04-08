@@ -22,9 +22,8 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -66,6 +65,61 @@ AppAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+
+
+    $(function() {
+        $('[data-action^="rewrite"]').on('change', function(e) {
+            let id = $(this).data('id');
+            let value = $(this).prop('checked');
+            let account = $(this).data('account');
+            $.ajax({
+                'url': '/domain/api',
+                'method': 'post',
+                'dataType': 'json',
+                'data': {action:'rewrite', account: account, id: id, value:value}
+            }).done(function (e) {
+                console.log(e)
+            });
+
+
+        })
+
+        $('[data-action^="dev"]').on('change', function(e) {
+            let id = $(this).data('id');
+            let value = $(this).prop('checked');
+            let account = $(this).data('account');
+            $.ajax({
+                'url': '/domain/api',
+                'method': 'post',
+                'dataType': 'json',
+                'data': {action:'dev', account: account, id: id, value:value}
+            }).done(function (e) {
+                console.log(e)
+            });
+        })
+
+
+        $('[data-action^="sec_level"]').on('change', function(e) {
+            let id = $(this).data('id');
+            let value = $(this).prop('checked');
+            let account = $(this).data('account');
+            $.ajax({
+                'url': '/domain/api',
+                'method': 'post',
+                'dataType': 'json',
+                'data': {action:'security_level', account: account, id: id, value:value}
+            }).done(function (e) {
+                console.log(e)
+            });
+        })
+
+
+    });
+</script>
+
 </body>
 </html>
 <?php $this->endPage() ?>

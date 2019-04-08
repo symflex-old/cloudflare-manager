@@ -43,4 +43,28 @@ class ZonesSettings
 
         return $result;
     }
+
+    public function setSecurityLevel($id, $value)
+    {
+        $response = $this->adapter->patch('zones/' . $id . '/settings/security_level', ['value' => $value]);
+        $this->body = $response->getBody();
+        return json_decode($this->body)->result;
+
+    }
+
+    public function setDev($id, $value)
+    {
+        $response = $this->adapter->patch('zones/' . $id . '/settings/development_mode', ['value' => $value]);
+        $this->body = $response->getBody();
+        return json_decode($this->body)->result;
+
+    }
+
+    public function setRewrite($id, $value)
+    {
+        $response = $this->adapter->patch('zones/' . $id . '/settings/automatic_https_rewrites', ['value' => $value]);
+        $this->body = $response->getBody();
+        return json_decode($this->body)->result;
+
+    }
 }
