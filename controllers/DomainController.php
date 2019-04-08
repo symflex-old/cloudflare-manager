@@ -31,6 +31,11 @@ class DomainController extends \yii\web\Controller
 
                 $record = $dns->listRecords($zone->id, 'A', $zone->name);
 
+
+                var_dump($zone);
+                exit;
+
+
                 $result[] = [
                     'id'        => $zone->id,
                     'account'   => $zone->account->name,
@@ -38,7 +43,7 @@ class DomainController extends \yii\web\Controller
                     'dev'       => $zone->development_mode,
                     'ns'        => $zone->name_servers,
                     'dns'       => !empty($record->result[0]->content) ? $record->result[0]->content : null,
-                    'rewrite'   => $settings['automatic_https_rewrites'],
+                    'rewrite'   => $settings['automatic_https_rewrites'] === 'on' ? true : false,
                     'tls'       => $settings['min_tls_version'],
                     'ssl'       => $settings['ssl'],
                     'sec_level' => $settings['security_level'] === 'under_attack' ? $settings['security_level'] :  'essentially_off'
