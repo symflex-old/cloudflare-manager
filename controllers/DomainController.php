@@ -169,7 +169,7 @@ class DomainController extends \yii\web\Controller
         $key = new APIKey($account->email, $account->api_key);
         $adapter = new Guzzle($key);
         $settings = new ZonesSettings($adapter);
-        $result = $settings->setSsl($id, $value === 'true' ? 'full' : 'off');
+        $result = $settings->setSsl($id, $value === 'true' ? 'strict' : 'off');
 
     }
 
