@@ -55,11 +55,12 @@ $(function() {
     $('[data-action^="tls"]').on('change', function(e) {
         let id = $(this).data('id');
         let account = $(this).data('account');
+        let value = $(this).val();
         $.ajax({
             'url': '/domain/api',
             'method': 'post',
             'dataType': 'json',
-            'data': {action:'tls', account: account, id: id}
+            'data': {action:'tls', account: account, id: id, value:value}
         }).done(function (e) {
             $('#alert').html(alert)
             $('.alert').fadeIn();
