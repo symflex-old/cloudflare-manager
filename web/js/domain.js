@@ -59,7 +59,7 @@ $(function() {
             'url': '/domain/api',
             'method': 'post',
             'dataType': 'json',
-            'data': {action:'purge', account: account, id: id}
+            'data': {action:'tls', account: account, id: id}
         }).done(function (e) {
             $('#alert').html(alert)
             $('.alert').fadeIn();
