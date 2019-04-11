@@ -113,3 +113,27 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.alert {
+    padding: 5px 15px;
+    margin-bottom: 0;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+    right: 0;
+}
+
+.create {
+    margin: 10px 0 10px 0;
+}
+th, td {
+    text-align: center;
+}
+
+.act {
+    width: 120px;
+    text-align: center;
+}
+.alert {
+    display: none;
+}

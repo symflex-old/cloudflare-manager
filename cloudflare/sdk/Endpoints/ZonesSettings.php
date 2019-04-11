@@ -65,6 +65,26 @@ class ZonesSettings
         $response = $this->adapter->patch('zones/' . $id . '/settings/automatic_https_rewrites', ['value' => $value]);
         $this->body = $response->getBody();
         return json_decode($this->body)->result;
+    }
 
+    public function setSsl($id, $value)
+    {
+        $response = $this->adapter->patch('zones/' . $id . '/settings/ssl', ['value' => $value]);
+        $this->body = $response->getBody();
+        return json_decode($this->body)->result;
+    }
+
+    public function setTls($id, $value)
+    {
+        $response = $this->adapter->patch('zones/' . $id . '/settings/min_tls_version', ['value' => $value]);
+        $this->body = $response->getBody();
+        return json_decode($this->body)->result;
+    }
+
+    public function purge($id)
+    {
+        $response = $this->adapter->post('zones/' . $id . '/purge_cache', ['purge_everything' => true]);
+        $this->body = $response->getBody();
+        return json_decode($this->body)->result;
     }
 }

@@ -9,22 +9,26 @@ $tlsList = [
 ];
 
 $sslList = ['off', 'full', 'flexible', 'strict'];
+
+$this->registerJsFile(
+    '@web/js/domain.js',
+    ['depends' => [\yii\web\JqueryAsset::className(), \app\assets\AppAsset::class]]
+);
 ?>
-
-<style>
-    .create {
-        margin: 10px 0 10px 0;
-    }
-    th, td {
-        text-align: center;
-    }
-
-</style>
 
 <h1>Управление доменами</h1>
 
 <div class="create">
-    <a href="/domain/create" class="btn btn-success btn-sm">Добавить</a>
+    <div class="row">
+        <div class="col-sm-4">
+            <a href="/domain/create" class="btn btn-success btn-sm">Добавить</a>
+        </div>
+        <div class="col-sm-8">
+           <div id="alert">
+
+           </div>
+        </div>
+    </div>
 </div>
 
 <table class="table table-bordered table-hover table-striped">
@@ -34,7 +38,7 @@ $sslList = ['off', 'full', 'flexible', 'strict'];
         <th>Логин</th>
         <th>Домен</th>
         <th>NS-записи</th>
-        <th>ДНС-записи</th>
+        <th>DNS A - запись</th>
         <th>SSL</th>
         <th width="110">TLS</th>
         <th>Rewrites</th>
@@ -51,23 +55,19 @@ $sslList = ['off', 'full', 'flexible', 'strict'];
             <td><?= $zone['account'] ?></td>
             <td><?= $zone['domain'] ?></td>
             <td><?= implode('<br>', $zone['ns']) ?></td>
-            <td><?= $zone['dns'] ?></td>
+            <td class="ip" data-action="ip-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" data-domain="<?= $zone['domain'] ?>" name="ip" data-record="<?= $zone['dns_id'] ?>"><?= $zone['dns'] ?></td>
             <td>
-                <select class="form-control input-sm">
-                <?php foreach ($sslList as $item): ?>
-                    <option value="<?= $item ?>" <?= $item === $zone['ssl'] ? 'selected' : '' ?>><?= ucfirst($item) ?> </option>
-                <?php endforeach; ?>
-                </select>
+                <input data-action="ssl-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['ssl'] ? 'checked' : '' ?>>
             </td>
             <td>
-                <select class="form-control input-sm">
+                <select class="form-control input-sm" data-action="tls-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>">
                 <?php foreach ($tlsList as $item): ?>
                 <option value="<?= $item ?>" <?= $item === $zone['tls'] ? 'selected' : '' ?>>TLS <?= $item ?> </option>
                 <?php endforeach; ?>
                 </select>
             </td>
             <td><input data-action="rewrite-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['rewrite'] ? 'checked' : '' ?>> </td>
-            <td><a class="btn btn-danger btn-sm">FLUSH</a> </td>
+            <td><a data-action="purge-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" class="btn btn-danger btn-sm">FLUSH</a> </td>
             <td><input data-action="dev-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['dev'] ? 'checked' : '' ?>> </td>
             <td><input data-action="sec_level-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['sec_level'] ? 'checked' : '' ?>> </td>
             <td>
@@ -78,3 +78,23 @@ $sslList = ['off', 'full', 'flexible', 'strict'];
     </tbody>
 
 </table>
+
+<div class="modal fade" id="ipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input class="form-control input-sm" name="ip" type="text" value="">
+                <label id="error-ip" style="display: none">не верный ip</label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary btn-sm" id="saveIp">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
