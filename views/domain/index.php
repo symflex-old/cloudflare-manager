@@ -60,7 +60,7 @@ $this->registerJsFile(
                 <input data-action="ssl-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['ssl'] ? 'checked' : '' ?>>
             </td>
             <td width="110">
-                <select class="form-control input-sm" data-action="tls-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>">
+                <select class="form-control input-sm" data-action="tls-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" style="width:110px;">
                 <?php foreach ($tlsList as $item): ?>
                 <option value="<?= $item ?>" <?= $item === $zone['tls'] ? 'selected' : '' ?>>TLS <?= $item ?> </option>
                 <?php endforeach; ?>
