@@ -87,4 +87,11 @@ class ZonesSettings
         $this->body = $response->getBody();
         return json_decode($this->body)->result;
     }
+
+    public function delete($id)
+    {
+        $response = $this->adapter->delete('zones/' . $id);
+        $this->body = $response->getBody();
+        return json_decode($this->body)->result;
+    }
 }

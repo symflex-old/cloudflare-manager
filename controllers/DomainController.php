@@ -117,10 +117,24 @@ class DomainController extends \yii\web\Controller
             case 'recordA':
                 $this->recordA($request['account'], $request['id'], $request['value'], $request['record'], $request['domain']);
                 break;
+            case 'delete':
+                $this->delete($request['account'], $request['id']);
+                break;
         }
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return ['status' => true];
+    }
+
+    protected function delete($account, $id)
+    {
+        $account = Account::findOne(['email' => $account]);
+
+        $key = new APIKey($account->email, $account->api_key);
+        $adapter = new Guzzle($key);
+        $zone = new ZonesSettings($adapter);
+        $result = $zone->delete($id);
+
     }
 
     protected function recordA($account, $id, $value, $record, $domain)

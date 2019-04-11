@@ -4,6 +4,27 @@ let alert = ' <div class="alert alert-success alert-dismissible" role="alert">\n
     '            </div>'
 
 $(function() {
+
+    $('[data-action^="delete"]').on('click', function (e) {
+        let id = $(this).data('id');
+        let account = $(this).data('account');
+        let row = $(this).parent().parent();
+
+        $.ajax({
+            'url': '/domains/api',
+            'method': 'post',
+            'dataType': 'json',
+            'data': {action:'delete', account: account, id: id}
+        }).done(function (e) {
+            $('#alert').html(alert)
+            $(row).remove();
+            $('.alert').fadeIn();
+        });
+
+    })
+
+
+
     $('[data-action^="rewrite"]').on('change', function(e) {
         let id = $(this).data('id');
         let value = $(this).prop('checked');
