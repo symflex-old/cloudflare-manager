@@ -53,7 +53,7 @@ class DomainController extends \yii\web\Controller
                         'dns_id' => !empty($record->result[0]->id) ? $record->result[0]->id : null,
                         'rewrite' => $settings['automatic_https_rewrites'] === 'on' ? true : false,
                         'tls' => $settings['min_tls_version'],
-                        'ssl' => $settings['ssl'] === 'full' ? true : false,
+                        'ssl' => $settings['ssl'] === 'strict' ? true : false,
                         'sec_level' => $settings['security_level'] === 'under_attack' ? true : false
 
                     ];
