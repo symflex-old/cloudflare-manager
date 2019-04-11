@@ -7,7 +7,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'clodflare manager',
+    'name' => 'cloudflare manager',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
