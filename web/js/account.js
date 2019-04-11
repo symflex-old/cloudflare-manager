@@ -34,13 +34,21 @@ $(function() {
             action = 'update?id=' + id;
         }
 
+        $('.alert-danger').hide();
+        $('.alert-success').hide();
         $.ajax({
             'url': '/account/' + action,
             'method': 'post',
             'dataType': 'json',
             'data': {Account:{email:email, api_key: apiKey}},
         }).done(function (e) {
-            $('.alert').fadeIn();
+
+            if (e.error) {
+                $('.alert-danger').fadeIn();
+            } else {
+                $('.alert-success').fadeIn();
+            }
+
         });
 
     });

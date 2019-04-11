@@ -8,19 +8,20 @@
 ?>
 
 
-<form>
+<form method="post">
+    <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
     <div class="form-group">
         <label>Аккаунт</label>
-        <select class="form-control input-sm">
-            <option>test@test.ru</option>
-            <option>test2@test.ru</option>
-            <option>test3@test.ru</option>
+        <select class="form-control input-sm" name="account">
+            <?php foreach ($accounts as $account): ?>
+            <option value="<?= $account->id ?>"><?= $account->email ?></option>
+            <?php endforeach; ?>
         </select>
     </div>
 
     <div class="form-group">
         <label>Домен</label>
-        <input class="form-control input-sm" name="name">
+        <input class="form-control input-sm" name="domain">
     </div>
 
     <div class="form-group">

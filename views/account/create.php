@@ -8,7 +8,7 @@
 ?>
 
 
-<form>
+<form method="post">
     <div class="form-group">
         <label>E-mail</label>
         <input class="form-control input-sm" name="email">

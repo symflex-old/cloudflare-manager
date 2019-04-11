@@ -7,6 +7,7 @@ use app\models\Account;
 use Cloudflare\API\Adapter\Guzzle;
 use Cloudflare\API\Auth\APIKey;
 use Cloudflare\API\Endpoints\DNS;
+use Cloudflare\API\Endpoints\User;
 use Cloudflare\API\Endpoints\Zones;
 use yii\web\Response;
 
@@ -69,7 +70,25 @@ class DomainController extends \yii\web\Controller
 
     public function actionCreate()
     {
-        return $this->render('create');
+        $accounts = Account::find()->all();
+
+
+        if (\Yii::$app->request->isPost) {
+            $request = \Yii::$app->request->post();
+
+            $account = Account::findOne(['id' => $request['account']]);
+
+            $key = new APIKey($account->email, $account->api_key);
+            $adapter = new Guzzle($key);
+            $zone = new Zones($adapter);
+            $zone->addZone($request['domain'], true);
+
+            return $this->redirect('/domain/index');
+        }
+
+        return $this->render('create', [
+            'accounts' => $accounts
+        ]);
     }
 
     public function actionApi()
