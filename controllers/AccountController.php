@@ -24,9 +24,29 @@ class AccountController extends \yii\web\Controller
         $request = \Yii::$app->request->post();
         $model = new Account();
 
+        $error = false;
+
         if ($model->load($request) && $model->validate()) {
-            $model->save();
+            $request = \Yii::$app->request->post();
+            $key = new APIKey($request['Account']['email'], $request['Account']['api_key']);
+            $adapter = new Guzzle($key);
+            $user = new User($adapter);
+
+            try {
+                $user->getUserID();
+                $model->save();
+            } catch (\Exception $exception) {
+                $error = true;
+            }
+
+
+        } else {
+            $error = true;
         }
+
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ['error' => $error];
     }
 
 
@@ -54,5 +74,16 @@ class AccountController extends \yii\web\Controller
         }
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return ['error' => $error];
+    }
+
+    public function beforeAction($action)
+    {
+
+
+        if (\Yii::$app->user->isGuest) {
+            return $this->redirect('/');
+        }
+
+        return parent::beforeAction($action);
     }
 }

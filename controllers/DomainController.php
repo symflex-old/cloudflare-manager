@@ -203,4 +203,13 @@ class DomainController extends \yii\web\Controller
         $settings = new ZonesSettings($adapter);
         $result = $settings->setSecurityLevel($id, $value === 'false' ? 'essentially_off' : 'under_attack');
     }
+
+    public function beforeAction($action)
+    {
+        if (\Yii::$app->user->isGuest) {
+            return $this->redirect('/');
+        }
+
+        return parent::beforeAction($action);
+    }
 }

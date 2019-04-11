@@ -53,9 +53,24 @@ $config = [
             'enableStrictParsing' => true,
             'rules' => [
                 '' => 'site/login',
+
+                'domains' => 'domain/index',
+                'domains/<action>' => 'domain/<action>',
+
+                'accounts' => 'account/index',
+                'accounts/<action>' => 'account/<action>',
+
+                'settings' => 'site/settings',
+                'settings/<action>' => 'site/<action>',
+
+                'login' => 'site/login',
+                'logout' => 'site/logout'
+
+                /*
                 '<controller>'          => '<controller>' ,
                 '<controller>/<action>' => '<controller>/<action>',
                 '<controller>/<action>/<id>' => '<controller>/<action>/<id>'
+                */
             ],
         ],
 

@@ -3,7 +3,7 @@
 
 ?>
 
-<form action="/site/settings" method="post">
+<form action="/settings" method="post">
     <input type="hidden" name="<?=Yii::$app->request->csrfParam; ?>" value="<?=Yii::$app->request->getCsrfToken(); ?>" />
     <div class="form-group">
         <label>Логин</label>

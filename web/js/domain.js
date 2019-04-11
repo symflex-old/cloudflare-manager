@@ -9,7 +9,7 @@ $(function() {
         let value = $(this).prop('checked');
         let account = $(this).data('account');
         $.ajax({
-            'url': '/domain/api',
+            'url': '/domains/api',
             'method': 'post',
             'dataType': 'json',
             'data': {action:'rewrite', account: account, id: id, value:value}
@@ -26,7 +26,7 @@ $(function() {
         let value = $(this).prop('checked');
         let account = $(this).data('account');
         $.ajax({
-            'url': '/domain/api',
+            'url': '/domains/api',
             'method': 'post',
             'dataType': 'json',
             'data': {action:'dev', account: account, id: id, value:value}
@@ -42,7 +42,7 @@ $(function() {
         let value = $(this).prop('checked');
         let account = $(this).data('account');
         $.ajax({
-            'url': '/domain/api',
+            'url': '/domains/api',
             'method': 'post',
             'dataType': 'json',
             'data': {action:'ssl', account: account, id: id, value:value}
@@ -57,7 +57,7 @@ $(function() {
         let account = $(this).data('account');
         let value = $(this).val();
         $.ajax({
-            'url': '/domain/api',
+            'url': '/domains/api',
             'method': 'post',
             'dataType': 'json',
             'data': {action:'tls', account: account, id: id, value:value}
@@ -72,7 +72,7 @@ $(function() {
         let value = $(this).val();
         let account = $(this).data('account');
         $.ajax({
-            'url': '/domain/api',
+            'url': '/domains/api',
             'method': 'post',
             'dataType': 'json',
             'data': {action:'purge', account: account, id: id, value:value}
@@ -87,7 +87,7 @@ $(function() {
         let value = $(this).prop('checked');
         let account = $(this).data('account');
         $.ajax({
-            'url': '/domain/api',
+            'url': '/domains/api',
             'method': 'post',
             'dataType': 'json',
             'data': {action:'security_level', account: account, id: id, value:value}
@@ -131,7 +131,7 @@ $(function() {
         }
         $('#error-ip').hide()
         $.ajax({
-            'url': '/domain/api',
+            'url': '/domains/api',
             'method': 'post',
             'dataType': 'json',
             'data': {action:'recordA', account: account, id: id, value:ip, record: record, domain:domain}

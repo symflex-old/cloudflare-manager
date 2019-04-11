@@ -37,7 +37,7 @@ $(function() {
         $('.alert-danger').hide();
         $('.alert-success').hide();
         $.ajax({
-            'url': '/account/' + action,
+            'url': '/accounts/' + action,
             'method': 'post',
             'dataType': 'json',
             'data': {Account:{email:email, api_key: apiKey}},

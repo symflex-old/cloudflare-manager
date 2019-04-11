@@ -41,11 +41,11 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            !Yii::$app->user->isGuest ? ['label' => 'Настройки', 'url' => ['/site/settings']] : '',
-            !Yii::$app->user->isGuest ? ['label' => 'Аккаунты', 'url' => ['/account/index']] : '',
-            !Yii::$app->user->isGuest ? ['label' => 'Домены', 'url' => ['/domain/index']] : '',
+            !Yii::$app->user->isGuest ? ['label' => 'Настройки', 'url' => ['/settings']] : '',
+            !Yii::$app->user->isGuest ? ['label' => 'Аккаунты', 'url' => ['/accounts']] : '',
+            !Yii::$app->user->isGuest ? ['label' => 'Домены', 'url' => ['/domains']] : '',
 
-            !Yii::$app->user->isGuest ? '<li>' . Html::beginForm(['/site/logout'], 'post')  . Html::submitButton('Выйти (' . Yii::$app->user->identity->login . ')', ['class' => 'btn btn-link logout'])
+            !Yii::$app->user->isGuest ? '<li>' . Html::beginForm(['/logout'], 'post')  . Html::submitButton('Выйти (' . Yii::$app->user->identity->login . ')', ['class' => 'btn btn-link logout'])
                 . Html::endForm() . '</li>' : '',
         ],
     ]);

@@ -98,7 +98,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect('domain/index');
+            return $this->redirect('domains');
         }
 
         $model->password = '';
@@ -117,5 +117,14 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function beforeAction($action)
+    {
+        if (Yii::$app->user->isGuest && Yii::$app->request->url !== '/login') {
+            return $this->redirect('/login');
+        }
+
+        return parent::beforeAction($action);
     }
 }
