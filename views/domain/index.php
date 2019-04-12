@@ -22,7 +22,7 @@ $this->registerJsFile(
 <div class="create">
     <div class="row">
         <div class="col-sm-4">
-            <a href="/domain/create" class="btn btn-success btn-sm">Добавить</a>
+            <a href="/domains/create" class="btn btn-success btn-sm">Добавить</a>
         </div>
         <div class="col-sm-8">
            <div id="alert">

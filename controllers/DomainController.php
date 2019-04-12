@@ -118,7 +118,7 @@ class DomainController extends \yii\web\Controller
             $zone = new Zones($adapter);
             $zone->addZone($request['domain'], true);
 
-            return $this->redirect('/domain/index');
+            return $this->redirect('/domains');
         }
 
         return $this->render('create', [
