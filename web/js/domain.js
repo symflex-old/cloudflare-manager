@@ -5,6 +5,8 @@ let alert = ' <div class="alert alert-success alert-dismissible" role="alert">\n
 
 $(function() {
 
+    const isValidIp = value => (/^(?:(?:^|\.)(?:2(?:5[0-5]|[0-4]\d)|1?\d?\d)){4}$/.test(value) ? true : false);
+
     $('[data-action^="delete"]').on('click', function (e) {
         let id = $(this).data('id');
         let account = $(this).data('account');
@@ -197,7 +199,56 @@ $(function() {
         });
 
 
-    })
+    });
+
+    $('#ipModal').on('click', '#add-record', function (e) {
+        let type = $('[data-insert="type"]').val();
+        let name = $('[data-insert="name"]').val();
+        let content = $('[data-insert="content"]').val();
+        let ttl = $('[data-insert="ttl"]').val();
+        let status = $('[data-insert="status"]').prop('checked');
+
+        let account = $(this).data('account');
+        let zone = $(this).data('zone');
+
+        if (isValidIp(content) == false) {
+            return;
+        }
+
+        let data = {
+            'action': 'insert-dns',
+            'account': account,
+            'zone': zone,
+            'type': type,
+            'name': name,
+            'content': content,
+            'ttl': ttl,
+            'status': status
+        };
+
+        $.ajax({
+            'url': '/domains/api',
+            'method': 'post',
+            'dataType': 'json',
+            'data': data
+        }).done(function (e) {
+            let id = e.id;
+
+            let checked = status == true ? 'checked': '';
+            let row = '<tr>' +
+                '<td>'+type+'</td>' +
+                '<td><input data-zone="'+zone+'" data-account="'+account+'" data-record-id="'+id+'" data-record-type="'+type+'" data-record-name="'+name+'" data-record-content="'+content+'" data-record-status="'+status+'" data-record-key="name" type="text" value="'+name+'" class="form-control input-sm"></td>' +
+                '<td><input data-zone="'+zone+'" data-account="'+account+'" data-record-id="'+id+'" data-record-type="'+type+'" data-record-name="'+name+'" data-record-content="'+content+'" data-record-status="'+status+'" data-record-key="content" type="text" value="'+content+'" class="form-control input-sm"></td>' +
+                '<td>'+ttls[ttl]+'</td>' +
+                '<td><input data-zone="'+zone+'" data-account="'+account+'" data-record-id="'+id+'" data-record-type="'+type+'" data-record-name="'+name+'" data-record-content="'+content+'" data-record-status="'+status+'" data-record-key="status" type="checkbox" data-toggle="toggle" data-size="small" '+checked+'></td>' +
+                '<td><div class="btn btn-danger btn-sm" data-action="delete" data-zone="'+zone+'" data-id="'+id+'" data-account="'+account+'"><i class="glyphicon glyphicon-remove"></i> </div> </td>' +
+            '</tr>';
+
+
+            $('#ipModal #rows tbody').prepend(row);
+            $('[data-record-key="status"]').bootstrapToggle();
+        });
+    });
 
 
     $('td.ip').on('click', function(e) {
@@ -208,6 +259,10 @@ $(function() {
         let rows = '';
         let account = $(this).data('account');
         let zone = $(this).data('id');
+
+        $('#add-record').attr('data-account', account);
+        $('#add-record').attr('data-zone', zone);
+
 
         for (let row of json) {
             let checked = row.proxied === true ? 'checked' : '';
@@ -246,7 +301,7 @@ $(function() {
         $('#ipModal').modal()*/
     });
 
-    const isValidIp = value => (/^(?:(?:^|\.)(?:2(?:5[0-5]|[0-4]\d)|1?\d?\d)){4}$/.test(value) ? true : false);
+
 
     $('#saveIp').on('click', function (e) {
         let input = $('.modal').find('[name="ip"]');

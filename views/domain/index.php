@@ -89,6 +89,11 @@ $this->registerJsFile(
 
 ?>
 
+<script>
+    let ttls = JSON.parse('<?= json_encode(\app\controllers\DomainController::RECORD_TTL) ?>');
+    console.log(ttls)
+</script>
+
 <div class="modal fade" id="ipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -101,30 +106,31 @@ $this->registerJsFile(
                 <table class="table table-bordered table-hover table-striped">
                     <tr>
                         <td width="62">
-                            <select class="form-control input-sm" style="padding-left: 5px;">
-                                <?php foreach (\app\controllers\DomainController::RECORD_TYPES as $type): ?>
+                            <select class="form-control input-sm" style="padding-left: 5px;" data-insert="type">
+                                <!--<?php foreach (\app\controllers\DomainController::RECORD_TYPES as $type): ?>
                                     <option value="<?= $type ?>"><?= $type ?></option>
-                                <?php endforeach; ?>
+                                <?php endforeach; ?>-->
+                                <option value="A">A</option>
                             </select>
                         </td>
                         <td width="250">
-                            <input type="text" name="name" placeholder="name" class="form-control input-sm">
+                            <input type="text" name="name" placeholder="name" class="form-control input-sm" data-insert="name">
                         </td>
                         <td width="250">
-                            <input type="text" name="value" placeholder="value" class="form-control input-sm">
+                            <input type="text" name="content" placeholder="value" class="form-control input-sm" data-insert="content">
                         </td>
                         <td width="152">
-                            <select class="form-control input-sm">
+                            <select class="form-control input-sm" data-insert="ttl">
                                 <?php foreach (\app\controllers\DomainController::RECORD_TTL as $key => $ttl): ?>
                                     <option value="<?= $key ?>"><?= $ttl ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </td>
                         <td width="84">
-                            <input type="checkbox" data-toggle="toggle" data-size="small">
+                            <input type="checkbox" data-toggle="toggle" data-size="small" data-insert="status">
                         </td>
                         <td width="69">
-                            <div class="btn btn-primary btn-sm">Add</div>
+                            <div class="btn btn-primary btn-sm" id="add-record">Add</div>
                         </td>
                     </tr>
                 </table>

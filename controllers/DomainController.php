@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\cloudflare\sdk\Endpoints\ZonesDns;
 use app\cloudflare\sdk\Endpoints\ZonesSettings;
 use app\models\Account;
 use Cloudflare\API\Adapter\Guzzle;
@@ -63,17 +64,18 @@ class DomainController extends \yii\web\Controller
                     exit;*/
 
                     $dnsRecords = [];
-                    foreach ($record->result as $record) {
+                    foreach ($record->result as $item) {
 
                         $dnsRecords[] = [
-                            'id'        => $record->id,
-                            'type'      => $record->type,
-                            'name'      => $record->name,
-                            'content'   => $record->content,
-                            'ttl'       => self::RECORD_TTL[$record->ttl],
-                            'proxied'   => $record->proxied
+                            'id'        => $item->id,
+                            'type'      => $item->type,
+                            'name'      => $item->name,
+                            'content'   => $item->content,
+                            'ttl'       => self::RECORD_TTL[$item->ttl],
+                            'proxied'   => $item->proxied
                         ];
                     }
+
 
                     $result[] = [
                         'id' => $zone->id,
@@ -82,7 +84,6 @@ class DomainController extends \yii\web\Controller
                         'dev' => $settings['development_mode'] === 'on' ? true : false,
                         'ns' => $zone->name_servers,
                         'dns' => !empty($record->result[0]->content) ? $record->result[0]->content : null,
-
                         'dns_id' => !empty($record->result[0]->id) ? $record->result[0]->id : null,
                         'dns_all' => json_encode($dnsRecords),
                         'rewrite' => $settings['automatic_https_rewrites'] === 'on' ? true : false,
@@ -128,6 +129,7 @@ class DomainController extends \yii\web\Controller
     public function actionApi()
     {
         $request = \Yii::$app->request->post();
+        $id = null;
 
         switch ($request['action']) {
             case 'rewrite':
@@ -160,10 +162,28 @@ class DomainController extends \yii\web\Controller
             case 'delete-dns':
                 $this->deleteDns($request['account'], $request['zone'], $request['id']);
                 break;
+            case 'insert-dns':
+                $id = $this->insertDns($request['account'], $request['zone'], $request['type'], $request['name'], $request['content'], $request['ttl'], $request['status']);
+                break;
         }
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return ['status' => true];
+        return ['status' => true, 'id' => $id];
+    }
+
+    protected function insertDns($account, $zone, $type, $name, $content, $ttl, $status)
+    {
+        $account = Account::findOne(['email' => $account]);
+        $key = new APIKey($account->email, $account->api_key);
+        $adapter = new Guzzle($key);
+        $dns = new ZonesDns($adapter);
+        try {
+            $result = $dns->addRecord($zone, $type, $name, $content, $status === 'true' ? 1 : $ttl, $status === 'true' ? true : false);
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return $result;
     }
 
     protected function deleteDns($account, $zone, $id)
