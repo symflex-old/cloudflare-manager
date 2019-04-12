@@ -119,7 +119,117 @@ $(function() {
     })
 
 
+    $('#rows').on('change', '[data-record-id]', function (e) {
+        let key = $(this).data('record-key');
+
+        let name = '';
+        let type = '';
+        let content = '';
+        let status = $(this).prop('checked');
+        let id = $(this).data('record-id');
+        let account = $(this).data('account');
+        let zone = $(this).data('zone');
+
+        switch (key) {
+            case 'name':
+                name = $(this).val()
+                type = $(this).data('record-type');
+                content = $(this).data('record-content');
+                break;
+            case 'content':
+                name = $(this).data('record-name');
+                type = $(this).data('record-type');
+                content = $(this).val();
+                break;
+            case 'status':
+                name = $(this).data('record-name');
+                type = $(this).data('record-type');
+                content = $(this).data('record-content');
+                break;
+        }
+
+        let data = {
+            'action': 'update-dns',
+            'account': account,
+            'zone': zone,
+            'type': type,
+            'id' : id,
+            'name': name,
+            'content': content,
+            'status': status
+        };
+
+        $.ajax({
+            'url': '/domains/api',
+            'method': 'post',
+            'dataType': 'json',
+            'data': data
+        }).done(function (e) {
+
+
+            //$('.alert').fadeIn();
+        });
+
+    });
+
+    $('#rows').on('click', '[data-action]', function (e) {
+        let row = $(this).parent().parent();
+
+        let id = $(this).data('id');
+        let zone = $(this).data('zone');
+        let account = $(this).data('account');
+
+        let data = {
+            'action': 'delete-dns',
+            'id': id,
+            'zone': zone,
+            'account': account
+
+        };
+
+        $.ajax({
+            'url': '/domains/api',
+            'method': 'post',
+            'dataType': 'json',
+            'data': data
+        }).done(function (e) {
+            $(row).remove();
+        });
+
+
+    })
+
+
     $('td.ip').on('click', function(e) {
+
+        let data = $(this).find('.json').html();
+        let json = JSON.parse(data)
+
+        let rows = '';
+        let account = $(this).data('account');
+        let zone = $(this).data('id');
+
+        for (let row of json) {
+            let checked = row.proxied === true ? 'checked' : '';
+
+            rows = rows + '<tr>' +
+                '<td>'+row.type+'</td>' +
+                '<td><input data-zone="'+zone+'" data-account="'+account+'" data-record-id="'+row.id+'" data-record-type="'+row.type+'" data-record-name="'+row.name+'" data-record-content="'+row.content+'" data-record-status="'+row.proxied+'" data-record-key="name" type="text" value="'+row.name+'" class="form-control input-sm"></td>' +
+                '<td><input data-zone="'+zone+'" data-account="'+account+'" data-record-id="'+row.id+'" data-record-type="'+row.type+'" data-record-name="'+row.name+'" data-record-content="'+row.content+'" data-record-status="'+row.proxied+'" data-record-key="content" type="text" value="'+row.content+'" class="form-control input-sm"></td>' +
+                '<td>'+row.ttl+'</td>' +
+                '<td><input data-zone="'+zone+'" data-account="'+account+'" data-record-id="'+row.id+'" data-record-type="'+row.type+'" data-record-name="'+row.name+'" data-record-content="'+row.content+'" data-record-status="'+row.proxied+'" data-record-key="status" type="checkbox" data-toggle="toggle" data-size="small" '+checked+'></td>' +
+                '<td><div class="btn btn-danger btn-sm" data-action="delete" data-zone="'+zone+'" data-id="'+row.id+'" data-account="'+account+'"><i class="glyphicon glyphicon-remove"></i> </div> </td>'
+                '</tr>';
+        }
+
+        $('#ipModal #rows tbody').html(rows);
+
+
+        $('#ipModal').modal()
+        $('[data-record-key="status"]').bootstrapToggle();
+        /*
+
+
         let ip = $(this).html();
         let zone = $(this).data('id');
         let account = $(this).data('account');
@@ -133,7 +243,7 @@ $(function() {
         $(input).attr('data-account', account);
         $(input).attr('data-record', record);
         $(input).attr('data-domain', domain);
-        $('#ipModal').modal()
+        $('#ipModal').modal()*/
     });
 
     const isValidIp = value => (/^(?:(?:^|\.)(?:2(?:5[0-5]|[0-4]\d)|1?\d?\d)){4}$/.test(value) ? true : false);

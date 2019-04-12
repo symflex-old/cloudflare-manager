@@ -16,6 +16,7 @@ $this->registerJsFile(
 );
 ?>
 
+
 <h1>Управление доменами</h1>
 
 <div class="create">
@@ -55,7 +56,12 @@ $this->registerJsFile(
             <td><?= $zone['account'] ?></td>
             <td><?= $zone['domain'] ?></td>
             <td><?= implode('<br>', $zone['ns']) ?></td>
-            <td class="ip" data-action="ip-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" data-domain="<?= $zone['domain'] ?>" name="ip" data-record="<?= $zone['dns_id'] ?>"><?= $zone['dns'] ?></td>
+            <td class="ip" data-account="<?= $zone['account'] ?>" data-id="<?= $zone['id'] ?>">
+                <div class="json" style="display: none;">
+                    <?= $zone['dns_all'] ?>
+                </div>
+                <?= $zone['dns'] ?>
+            </td>
             <td>
                 <input data-action="ssl-<?= $i ?>" data-id="<?= $zone['id'] ?>" data-account="<?= $zone['account'] ?>" type="checkbox" data-toggle="toggle" data-size="small" <?php echo $zone['ssl'] ? 'checked' : '' ?>>
             </td>
@@ -79,8 +85,12 @@ $this->registerJsFile(
 
 </table>
 
+<?php
+
+?>
+
 <div class="modal fade" id="ipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -88,12 +98,51 @@ $this->registerJsFile(
                 </button>
             </div>
             <div class="modal-body">
-                <input class="form-control input-sm" name="ip" type="text" value="">
+                <table class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <td width="62">
+                            <select class="form-control input-sm" style="padding-left: 5px;">
+                                <?php foreach (\app\controllers\DomainController::RECORD_TYPES as $type): ?>
+                                    <option value="<?= $type ?>"><?= $type ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                        <td width="250">
+                            <input type="text" name="name" placeholder="name" class="form-control input-sm">
+                        </td>
+                        <td width="250">
+                            <input type="text" name="value" placeholder="value" class="form-control input-sm">
+                        </td>
+                        <td width="152">
+                            <select class="form-control input-sm">
+                                <?php foreach (\app\controllers\DomainController::RECORD_TTL as $key => $ttl): ?>
+                                    <option value="<?= $key ?>"><?= $ttl ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                        <td width="84">
+                            <input type="checkbox" data-toggle="toggle" data-size="small">
+                        </td>
+                        <td width="69">
+                            <div class="btn btn-primary btn-sm">Add</div>
+                        </td>
+                    </tr>
+                </table>
+
+                <form>
+                <table class="table table-bordered table-hover table-striped" id="rows">
+                    <thead>
+                    <tr><th>type</th><th>name</th><th>value</th><th>ttl</th></th><th>status</th><th>#</th></tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                </form>
                 <label id="error-ip" style="display: none">не верный ip</label>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary btn-sm" id="saveIp">Сохранить</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
