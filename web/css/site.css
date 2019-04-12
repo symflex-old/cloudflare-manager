@@ -137,3 +137,7 @@ th, td {
 .alert {
     display: none;
 }
+
+td.ip:hover {
+    cursor: pointer;
+}
