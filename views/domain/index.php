@@ -91,7 +91,6 @@ $this->registerJsFile(
 
 <script>
     let ttls = JSON.parse('<?= json_encode(\app\controllers\DomainController::RECORD_TTL) ?>');
-    console.log(ttls)
 </script>
 
 <div class="modal fade" id="ipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
