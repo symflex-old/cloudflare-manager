@@ -1,4 +1,14 @@
 $(function(){
+
+    $(function () {
+
+        let el = $('[name="per-page"]').clone();
+        $('[name="per-page"]').remove();
+        $('#perpage').html(el);
+    })
+
+
+
     const isValidIp = value => (/^(?:(?:^|\.)(?:2(?:5[0-5]|[0-4]\d)|1?\d?\d)){4}$/.test(value) ? true : false);
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {

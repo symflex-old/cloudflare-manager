@@ -32,7 +32,8 @@ $this->registerJsFile(
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-
+        'layout' => '{summary}<br>{items}<br> <div class="col-sm-3">{pager}</div><div class="col-sm-1"><div id="perpage"></div></div>',
+        'filterSelector' => 'select[name="per-page"]',
         'rowOptions'=>function ($model, $key, $index, $grid){
             $class=$index%2?'odd':'even';
             return [
@@ -186,11 +187,14 @@ $this->registerJsFile(
             ],
         ],
     ]); ?>
-
-
+    <?php echo \nterms\pagesize\PageSize::widget(['template' => '<div class="perpage">{list}</div>', 'options' => ['class' => 'form-control input-sm']]); ?>
 </div>
 
-
+<style>
+    #perpage {
+        margin-top: 20px;
+    }
+</style>
 
 <script>
     let tls = JSON.parse('<?= json_encode(\app\models\Zones::TLS) ?>');

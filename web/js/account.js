@@ -20,6 +20,27 @@ $(function() {
 
     });
 
+    $('table').on('click', '[data-action="delete"]', function (e) {
+        e.preventDefault();
+
+        let id = $(this).data('id');
+
+        $.ajax({
+            'url': '/accounts/delete',
+            'method': 'post',
+            'dataType': 'json',
+            'data': {id:id},
+        }).done(function (e) {
+            if (e.error) {
+                $('.alert-danger').fadeIn();
+            } else {
+                $('.alert-success').fadeIn();
+            }
+
+        });
+
+    })
+
     $('table').on('click', '[data-action="save"]', function (e) {
         e.preventDefault();
         let id = $(this).data('id');

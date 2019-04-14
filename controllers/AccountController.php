@@ -18,6 +18,19 @@ class AccountController extends \yii\web\Controller
         ]);
     }
 
+    public function actionDelete()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $id = \Yii::$app->request->post('id');
+
+        $account = Account::findOne(['id' => $id]);
+
+        $account->delete();
+
+        return ['status' => 'success'];
+    }
+
 
     public function actionCreate()
     {
