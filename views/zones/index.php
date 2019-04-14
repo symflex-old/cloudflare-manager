@@ -227,7 +227,7 @@ $this->registerJsFile(
                             </select>
                         </td>
                         <td width="84">
-                            <input type="checkbox" data-toggle="toggle" data-size="small" data-insert="status">
+                            <input type="checkbox" data-toggle="toggle" data-size="small" data-insert="status" checked>
                         </td>
                         <td width="69">
                             <div class="btn btn-primary btn-sm" id="add-record">Add</div>
