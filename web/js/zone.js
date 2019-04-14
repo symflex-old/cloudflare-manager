@@ -124,9 +124,7 @@ $(function(){
 
     });
 
-    //$('#ipModal').on('click', '[data-dns-action="delete"]', function () {
-
-        /*
+    $('#ipModal').on('click', '[data-dns-action="delete"]', function () {
         let parent = $(this).parent().parent();
         let id = $(parent).data('id');
 
@@ -141,8 +139,8 @@ $(function(){
             data:data
         }).done(function () {
             $(parent).remove();
-        });*/
-    //});
+        });
+    });
 
 
     $('[data-sync]').on('click', function (e) {
