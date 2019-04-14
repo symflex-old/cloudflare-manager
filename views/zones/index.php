@@ -187,12 +187,15 @@ $this->registerJsFile(
             ],
         ],
     ]); ?>
-    <?php echo \nterms\pagesize\PageSize::widget(['template' => '<div class="perpage">{list}</div>', 'options' => ['class' => 'form-control input-sm']]); ?>
+    <?php echo \app\widgets\PageSize::widget(['template' => '<div class="perpage">{list}</div>', 'options' => ['class' => 'form-control input-sm']]); ?>
 </div>
 
 <style>
     #perpage {
         margin-top: 20px;
+    }
+    .perpage {
+        display: none;
     }
 </style>
 
