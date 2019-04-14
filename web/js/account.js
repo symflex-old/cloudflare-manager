@@ -23,18 +23,26 @@ $(function() {
     $('table').on('click', '[data-action="delete"]', function (e) {
         e.preventDefault();
 
+        var answer = confirm("Действительно удалить?")
+        if (!answer) {
+            return;
+        }
+
         let id = $(this).data('id');
+        let parent = $(this).parent().parent();
 
         $.ajax({
             'url': '/accounts/delete',
             'method': 'post',
             'dataType': 'json',
-            'data': {id:id},
+            'data': {id:id}
         }).done(function (e) {
             if (e.error) {
                 $('.alert-danger').fadeIn();
             } else {
+                $('.alert-success .msg').html('Аккаунт успешно удалён')
                 $('.alert-success').fadeIn();
+                $(parent).remove();
             }
 
         });
@@ -65,8 +73,10 @@ $(function() {
         }).done(function (e) {
 
             if (e.error) {
+                $('.alert-danger .msg').html('Неверный E-mail или токен')
                 $('.alert-danger').fadeIn();
             } else {
+                $('.alert-success .msg').html('Аккаунт успешно обновлен')
                 $('.alert-success').fadeIn();
             }
 

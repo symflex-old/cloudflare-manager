@@ -32,7 +32,7 @@ $this->registerJsFile(
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'layout' => '{summary}<br>{items}<br> <div class="row"><div class="col-sm-1"><div id="perpage"></div></div> <div class="col-sm-11">{pager}</div></div>',
+        'layout' => '{summary}<br>{items}<div class="row"><div class="col-sm-1"><div id="perpage"></div></div> <div class="col-sm-11">{pager}</div></div>',
         'filterSelector' => 'select[name="per-page"]',
         'rowOptions'=>function ($model, $key, $index, $grid){
             $class=$index%2?'odd':'even';

@@ -135,6 +135,8 @@ $(function(){
     });
 
     $('#ipModal').on('click', '[data-dns-action="delete"]', function () {
+
+
         let parent = $(this).parent().parent();
         let id = $(parent).data('id');
 
@@ -168,6 +170,11 @@ $(function(){
 
         let id = $(this).data('id');
         let action = $(this).data('action');
+
+        var answer = confirm("Действительно удалить?")
+        if (!answer) {
+            return;
+        }
 
         let data = {
             'id': id
