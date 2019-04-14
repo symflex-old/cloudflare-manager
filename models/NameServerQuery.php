@@ -3,11 +3,11 @@
 namespace app\models;
 
 /**
- * This is the ActiveQuery class for [[Zones]].
+ * This is the ActiveQuery class for [[NameServer]].
  *
- * @see Zones
+ * @see NameServer
  */
-class AccountQuery extends \yii\db\ActiveQuery
+class NameServerQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class AccountQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Zones[]|array
+     * @return NameServer[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class AccountQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Zones|array|null
+     * @return NameServer|array|null
      */
     public function one($db = null)
     {

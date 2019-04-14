@@ -11,4 +11,7 @@ return [
     //'enableSchemaCache' => true,
     //'schemaCacheDuration' => 60,
     //'schemaCache' => 'cache',
+    'on afterOpen' => function($event){
+        $event->sender->pdo->exec('set sql_mode=""');
+    }
 ];

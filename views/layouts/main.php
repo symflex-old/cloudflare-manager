@@ -62,6 +62,9 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
+    <div id="before-load">
+        <i class="fa fa-spinner fa-spin"></i>
+    </div>
 </footer>
 
 <?php $this->endBody() ?>

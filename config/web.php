@@ -54,14 +54,17 @@ $config = [
             'rules' => [
                 '' => 'site/login',
 
-                'domains' => 'domain/index',
-                'domains/<action>' => 'domain/<action>',
+                'domains' => 'zones/index',
+                'domains/<action>' => 'zones/<action>',
 
                 'accounts' => 'account/index',
                 'accounts/<action>' => 'account/<action>',
 
                 'settings' => 'site/settings',
                 'settings/<action>' => 'site/<action>',
+
+                'api/<action>' => 'api/<action>',
+
 
                 'login' => 'site/login',
                 'logout' => 'site/logout'
