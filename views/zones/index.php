@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ZonesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Zones';
+$this->title = 'Домены';
 
 $this->registerJsFile(
     '@web/js/zone.js',
@@ -22,8 +22,8 @@ $this->registerJsFile(
 
     <div class="row">
         <div class="col-sm-12">
-            <?= Html::a('Add zone', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
-            <div data-sync="sync" class="btn btn-success btn-sm pull-right">Sync</div>
+            <?= Html::a('Добавить домен', ['create'], ['class' => 'btn btn-primary btn-sm']) ?>
+            <div data-sync="sync" class="btn btn-success btn-sm pull-right">Синхронизировать</div>
         </div>
     </div>
     <br>
