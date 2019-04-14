@@ -5,9 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Zones */
 
-$this->title = 'Create Zones';
-$this->params['breadcrumbs'][] = ['label' => 'Zones', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Добавление домена';
 ?>
 <div class="zones-create">
 

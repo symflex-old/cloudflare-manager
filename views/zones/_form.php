@@ -14,12 +14,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'account_id')->dropDownList(
         \yii\helpers\ArrayHelper::map(\app\models\Account::find()->asArray()->all(), 'id', 'email')
-    ) ?>
+    )->label('Аккаунт') ?>
 
-    <?= $form->field($model, 'domain')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'domain')->textInput(['maxlength' => true])->label('Домен') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
