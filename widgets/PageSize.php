@@ -59,7 +59,7 @@ class PageSize extends \yii\base\Widget
 	/**
 	 * @var array the list of page sizes
 	 */
-	public $sizes = [10 => 10, 15 => 15, 20 => 20, 25 => 25, 50 => 50, 100 => 100, 200 => 200];
+	public $sizes = [20 => 20, 50 => 50, 100 => 100];
 	
 	/**
 	 * @var string the template to be used for rendering the output.
