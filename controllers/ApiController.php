@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\cloudflare\sdk\Endpoints\ZonesDns;
 use app\cloudflare\sdk\Endpoints\ZonesSettings;
 use app\models\Account;
 use app\models\DnsRecord;
@@ -10,6 +11,7 @@ use app\models\ZoneDns;
 use app\models\ZoneNameServer;
 use Cloudflare\API\Adapter\Guzzle;
 use Cloudflare\API\Auth\APIKey;
+use Cloudflare\API\Endpoints\DNS;
 use Cloudflare\API\Endpoints\Zones;
 
 
@@ -154,9 +156,9 @@ class ApiController extends \yii\web\Controller
         $request = \Yii::$app->request->post();
         $zone = \app\models\Zones::findOne(['id' => $request['id']]);
 
-        $result = [];
+        $records = [];
         foreach ($zone->dns as $dns) {
-            $result[] = [
+            $records[] = [
                 'id' => $dns->id,
                 'type' => $dns->type,
                 'name' => $dns->name,
@@ -166,7 +168,119 @@ class ApiController extends \yii\web\Controller
             ];
         }
 
+        $result['zone'] = $zone->id;
+        $result['records'] = $records;
+
         return $result;
+    }
+
+
+    public function actionInsertDns()
+    {
+        $request = \Yii::$app->request->post();
+        $zone = \app\models\Zones::findOne(['id' => $request['id']]);
+
+
+
+        $key = new APIKey($zone->account->email, $zone->account->api_key);
+        $adapter = new Guzzle($key);
+        $dnsPoint = new ZonesDns($adapter);
+
+        $result = $dnsPoint->addRecord($zone->zone_id, $request['type'], $request['name'], $request['value'], $request['status'] === 'true' ? 1 : $request['ttl'], $request['status'] === 'true' ? true : false);
+
+        $dns = new DnsRecord();
+        $dns->record_id = $result;
+        $dns->type = $request['type'];
+        $dns->name = $request['name'];
+        $dns->value = $request['value'];
+        $dns->ttl = $request['status'] === 'true' ? 1 : $request['ttl'];
+        $dns->status = $request['status'] === 'true' ? 1 : 0;
+        $dns->save();
+
+        \Yii::$app->db->createCommand()->insert('zone_dns', [
+            'zone_id' => $zone->id,
+            'dns_id' => $dns->id
+        ])->execute();
+
+        return ['id' => $dns->id];
+    }
+
+
+    public function actionUpdateDns()
+    {
+        $request = \Yii::$app->request->post();
+        $dns = DnsRecord::findOne(['id' => $request['id']]);
+
+
+        $key = new APIKey($dns->zones[0]->account->email, $dns->zones[0]->account->api_key);
+        $adapter = new Guzzle($key);
+        $dnsPoint = new DNS($adapter);
+
+
+        $data = [
+            'type' => $dns->type,
+            'name' => $request['key'] === 'name' ? $request['value'] : $dns->name,
+            'content' => $request['key'] === 'value' ? $request['value'] : $dns->value,
+            'proxied' => $request['key'] === 'status' ? $request['value'] === 'true' ? true : false : $dns->status === 1 ? true : false
+        ];
+
+        $result = $dnsPoint->updateRecordDetails($dns->zones[0]->zone_id, $dns->record_id, $data);
+
+
+        if ($request['key'] === 'name') {
+            $dns->name = $request['value'];
+        }
+
+        if ($request['key'] === 'value') {
+            $dns->value = $request['value'];
+        }
+
+        if ($request['key'] === 'status') {
+            $dns->status = $request['value'] === 'true' ? 1 : 0;
+        }
+
+        $dns->save();
+
+        return $result;
+
+        /* $account = Account::findOne(['email' => $account]);
+        $key = new APIKey($account->email, $account->api_key);
+        $adapter = new Guzzle($key);
+        $dns = new DNS($adapter);
+
+        $data = [
+            'type' => $type,
+            'name' => $name,
+            'content' => $content,
+            'proxied' => $status === 'true' ? true : false
+        ];
+
+        try {
+            $dns->updateRecordDetails($zone, $id, $data);
+        } catch (\Exception $e) {
+            dump($e->getMessage());exit;
+        }*/
+
+
+    }
+
+    public function actionDeleteDns()
+    {
+        $id = \Yii::$app->request->post('id');
+        $dns = DnsRecord::findOne(['id' => $id]);
+
+        $zone = $dns->zones[0];
+        $account = $zone->account;
+
+        $key = new APIKey($account->email, $account->api_key);
+        $adapter = new Guzzle($key);
+        $dnsPoint = new DNS($adapter);
+
+        $result = $dnsPoint->deleteRecord($zone->zone_id, $dns->record_id);
+        $dns->delete();
+
+        return $result;
+
     }
 
     public function actionSync()

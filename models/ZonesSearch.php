@@ -45,8 +45,8 @@ class ZonesSearch extends Zones
     {
         $query = Zones::find();
         $query->innerJoinWith('account');
-        $query->innerJoinWith('servers')->distinct();
-        $query->innerJoinWith('dns')->distinct();
+        $query->joinWith('servers')->distinct();
+        $query->joinWith('dns')->distinct();
 
 
         // add conditions that should always apply here
